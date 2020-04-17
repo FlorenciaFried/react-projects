@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Error from './Error';
+import Error from "./Error";
 
-const Form = () => {
+const Form = ({ setSearch }) => {
   const [term, setTerm] = useState("");
   const [error, setError] = useState(false);
 
@@ -16,6 +16,7 @@ const Form = () => {
     setError(false);
 
     // Enviar el termino de busqueda hacia el componente principal
+    setSearch(term);
   };
 
   return (
