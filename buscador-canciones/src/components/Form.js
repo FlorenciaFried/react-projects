@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Form = () => {
+const Form = ({ setSongSearch }) => {
   const [search, setSearch] = useState({
     artist: "",
     song: "",
@@ -8,11 +8,11 @@ const Form = () => {
   const [error, setError] = useState(false);
   const { artist, song } = search;
 
-  // Funcion para leer el contenido del input
+  // función a cada input para leer su contenido
   const updateState = (e) => {
     setSearch({
       ...search,
-      [e.target.value]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -25,12 +25,18 @@ const Form = () => {
       return;
     }
     setError(false);
-
     // Todo bien, pasar al componente principal
+
+    setSongSearch(search);
   };
 
   return (
     <div className="bg-info">
+      {error ? (
+        <p className="alert alert-danger text-center p-2">
+          Todos los campos son obligatorios
+        </p>
+      ) : null}
       <div className="container">
         <div className="row">
           <form
@@ -47,7 +53,7 @@ const Form = () => {
                     <input
                       type="text"
                       className="form-control"
-                      name="artista"
+                      name="artist"
                       placeholder="Nombre Artista"
                       onChange={updateState}
                       value={artist}
@@ -60,7 +66,7 @@ const Form = () => {
                     <input
                       type="text"
                       className="form-control"
-                      name="cancion"
+                      name="song"
                       placeholder="Nombre Canción"
                       onChange={updateState}
                       value={song}
